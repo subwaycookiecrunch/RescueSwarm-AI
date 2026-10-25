@@ -12,6 +12,11 @@ html, body, #root {
   overflow: hidden;
 }
 
+/* Tactical military/crisis dark-mode filter for OpenStreetMap tiles without any watermark */
+.map-tiles-dark {
+  filter: invert(100%) hue-rotate(180deg) brightness(88%) contrast(110%);
+}
+
 /* Custom scrollbars for command center terminal */
 ::-webkit-scrollbar {
   width: 6px;

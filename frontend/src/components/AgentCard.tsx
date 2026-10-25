@@ -99,11 +99,19 @@ export const AgentCard: React.FC<AgentCardProps> = ({ agent, onKill, onRevive })
         </div>
       </div>
 
-      {agent.notes && (
+      {isCrashed ? (
+        <div className="text-[10px] bg-red-950/80 text-red-200 border border-red-800/80 rounded-md p-1.5 mb-2.5 font-mono">
+          💥 FAILOVER TRIGGERED: Heartbeat lost. Routing responsibility transferred to standby backup node.
+        </div>
+      ) : isBackup ? (
+        <div className="text-[10px] bg-purple-950/80 text-purple-200 border border-purple-700/80 rounded-md p-1.5 mb-2.5 font-mono">
+          ⚡ PROMOTED BACKUP NODE: Assumed routing authority. State & routes synchronized.
+        </div>
+      ) : agent.notes ? (
         <div className="text-[10px] text-slate-400 mb-2.5 font-mono truncate">
           Note: {agent.notes}
         </div>
-      )}
+      ) : null}
 
       {/* Operator Chaos Trigger */}
       {agent.id !== 'recovery-agent' && !agent.is_backup && (

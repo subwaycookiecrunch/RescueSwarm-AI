@@ -157,6 +157,13 @@ class SwarmEngine:
 
     async def simulate_major_emergency(self) -> List[Incident]:
         """Trigger the 00:10 disaster wave: 47 chaotic reports clustered into physical incidents."""
+        # Cleanly reset fleet and routing dispatches for idempotent scenario execution
+        self.resource_agent.reset_fleet()
+        self.routing_agent.active_dispatches.clear()
+        if self._active_backup:
+            self.backup_routing_agent.active_dispatches.clear()
+        self.verification_agent.verified_incidents.clear()
+
         reports = generate_major_disaster_reports()
         self.active_reports = reports
 
